@@ -366,16 +366,22 @@
         var drago;
 
         document.addEventListener('DOMContentLoaded', function () {
-            drago = new Drago('stage');
-            let save = localStorage.getItem('drago_save');
-            if (!save) {
-                drago.init();
-            } else {
-                drago.import(save);
-            }
+            drago = new Drago('#stage');
+            //let save = localStorage.getItem('drago_save');
+            //if (!save) {
+            drago.init();
+            //} else {
+            //    drago.import(save);
+            //}
         }, false);
 
     </script>
+
+    <!--
+
+        Cats
+
+    -->
 
     <script type="text/javascript" src="src/Drago.js"></script>
     <script type="text/javascript" src="src/DragoContainer.js"></script>

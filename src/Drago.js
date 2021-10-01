@@ -312,7 +312,7 @@ class Drago {
 
     init() {
 
-        const start = this.newContainer({component: 'Drago_Abe_Event', type: 'event', title: 'Event', x: 100, y: 100});
+        const start = this.newContainer({component: 'Drago_Events_Event', type: 'event', title: 'Event', x: 100, y: 100});
 
         this.drawLinks();
         this.tick(); //Kick off tick        
