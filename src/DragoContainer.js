@@ -75,16 +75,37 @@ class DragoContainer {
 
         //Set binds for container (nothing exists yet)
 
+        this.elem.on("mousedown", () => {
+            var maxZ = Math.max.apply(null, 
+             $.map($('body *'), function(e,n) {
+                if ($(e).css('position') != 'static')
+                return parseInt($(e).css('z-index')) || 1;
+            }));
+            console.log("Setz", maxZ++);
+            this.elem.css('z-index', maxZ++);
+        });
+
         this.elem.children(".title").on('mousedown', () => {
             this.drago.clickPos = { ...this.drago.position };
             this.drago.isMouseDown = true;
             this.drago.lastClicked = this;
             this.drago.lastClickedX = this.drago.position.x - this.drago.lastClicked.x;
             this.drago.lastClickedY = this.drago.position.y - this.drago.lastClicked.y;
+
+            
+
         });
 
         this.elem.children(".title").children(".xButton").on('mousedown', () => {
             this.destroy();
+        });
+
+        this.elem.children(".title").children(".minButton").on('mousedown', () => {
+            if(this.elem.hasClass('hidden')) {
+                this.elem.removeClass('hidden');
+            } else {
+                this.elem.addClass('hidden');
+            }
         });
     }
 
@@ -229,6 +250,7 @@ class DragoContainer {
             <div class="row title">
                 <span>${this.title}</span>
                 <span class='xButton'>x</span>
+                <span class='minButton'>-</span>
             </div>
         </div>
 `

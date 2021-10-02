@@ -138,6 +138,29 @@ class Drago__String extends DragoRow {
 
 DragoSubComponents.prototype.Drago__String = Drago__String;
 
+class Drago__Multiline extends DragoRow {
+
+    constructor(container, id, options) {
+        super(container, id, options)
+        this.textId = this.id+'-text';
+        this.value = '';
+    }
+
+    code() {
+        let elem = $("#"+this.textId);
+        let val = elem.val();
+        this.value = elem.val();
+        return "`"+val+"`"; //Return with quotes to make it a true string
+    }
+
+    display() {
+        return `<textarea id='${this.textId}' type='text' class='Drago__String' placeholder='${this.options.label}'>${this.value}</textarea><div style='clear:both;'></div>`;
+    }
+    
+}
+
+DragoSubComponents.prototype.Drago__Multiline = Drago__Multiline;
+
 class Drago__Undefined extends DragoRow {
 
     constructor(container, id, options) {

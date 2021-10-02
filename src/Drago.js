@@ -22,7 +22,9 @@ class Drago {
         this.dataclasses = new DragoDataClasses();
         this.lowestContainerY = 1000;
         this.lowestContainerX = 1000;
-        this.addToolbar();
+        
+        setTimeout(()=>{this.addToolbar()}, 100);
+        
         //document.oncontextmenu = function(e){e.preventDefault()};
 
         $('a').on('click', function(event) {
@@ -37,6 +39,33 @@ class Drago {
         
     }
 
+    restrictTo(restricted) {
+        this.restrictedTo = restricted;
+    }
+
+    isRestricted(className) {
+
+        if(!this.restrictedTo) {
+            return false;
+        }
+
+        let ex = className.split("_");
+
+        if(ex.length >= 3) {
+            
+            if(this.restrictedTo.includes(ex[0]+"_"+ex[1])) {
+                return false; //Is included as part of a category e.g. Drago_Convo
+            }
+        }
+
+        if(this.restrictedTo) {
+            if(this.restrictedTo.includes(className)) {
+                return false; //Is included explicitly e.g. Drago_Convo_Start
+            }
+        }
+
+        return true;
+    }
 
     getCode() {
         return this.code;
@@ -120,7 +149,13 @@ class Drago {
         `);
         let knownTabs = [];
         for(let i = 0; i < components.length; i++) {
+
+            if(this.isRestricted(components[i])) {
+                continue;
+            }
+
             let componentClass = DragoComponents.prototype[components[i]]
+            
             let settings = componentClass.settings;
             if(!settings) {
                 settings = {};
@@ -173,7 +208,7 @@ class Drago {
 
         let ptA = this.svgPoint(startX, startY);
         let ptB = this.svgPoint(endX, endY);
-        return this.createPath(ptA.x, ptA.y, ptB.x, ptB.y, ptA.x+150, ptA.y, ptB.x-150, ptB.y, color);
+        return this.createPath(ptA.x, ptA.y, ptB.x, ptB.y, ptA.x+50, ptA.y, ptB.x-50, ptB.y, color);
     }
 
     createPath(startX, startY, endX, endY, startCX, startCY, endCX, endCY, color) {
@@ -311,8 +346,14 @@ class Drago {
     }
 
     init() {
+        
+        const start = this.newContainer({component: 'Drago_Convo_Start', type: 'event', title: 'Event', x: 100, y: 50});
+        const start2 = this.newContainer({component: 'Drago_Convo_Start', type: 'event', title: 'Event', x: 100, y: 150});
+        const start3 = this.newContainer({component: 'Drago_Convo_Start', type: 'event', title: 'Event', x: 100, y: 250});
 
-        const start = this.newContainer({component: 'Drago_Events_Event', type: 'event', title: 'Event', x: 100, y: 100});
+        //const title = this.newContainer({component: 'Drago_Datatype_String', type: 'event', title: 'Event', x: 300, y: 50});
+
+        //const dialog = this.newContainer({component: 'Drago_Convo_Dialog', type: 'event', title: 'Event', x: 500, y: 250});
 
         this.drawLinks();
         this.tick(); //Kick off tick        

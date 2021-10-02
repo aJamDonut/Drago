@@ -179,6 +179,34 @@
             margin-right: 10px;
         }
 
+
+        .minButton {
+            float: right;
+            color: white;
+            font-family: monospace;
+            font-size: 10px;
+            text-align: center;
+            background-color: #283d55;
+            width: 20px;
+            border: 1px solid gray;
+            border-radius: 7px;
+            margin-top: -10px;
+            margin-right: 0px;
+        }
+
+        .hidden .title {
+            border-radius: 10px;
+            background-color: rgb(36, 44, 66)
+        }
+
+        .hidden .row:not(:first-child) {
+            display: none;
+        }
+
+        .slim .minButton {
+            display: none;
+        }
+
         .Drago__String {
             width: 50%;
             background-color: #3a3a3a;
@@ -344,6 +372,49 @@
         .Drago__Start .row-left {
             pointer-events: all;
         }
+
+        ._Drago .bigger {
+            width: 200px;
+        }
+
+        ._Drago .bigger textarea {
+            width: 100%;
+            min-height: 50px;
+        }
+
+        ._Drago .bigger .row-middle {
+            width: 90%;
+        }
+
+        ._Drago .wideboy {
+            width: 500px;
+        }
+
+        ._Drago .wideboy .row-middle {
+            width: 90%;
+        }
+
+        ._Drago .wideboy .row.variable {
+            min-height: 50px;
+        }
+
+        ._Drago .wideboy textarea {
+            width: 100%;
+            min-height: 25px;
+        }
+
+        .Drago__String {
+            width: 90%
+        }
+
+        .Drago__String .row-right {
+            width: 0%;
+        }
+
+        .Drago__String .row-middle {
+            width: 100%;
+
+        }
     </style>
 
 
@@ -353,7 +424,7 @@
             <title>Dirty Drago</title>
             <desc>Hey look im running Drago 1.0</desc>
         </svg>
-        <div id="stage">
+        <div id="stage" class="_Drago">
 
         </div>
     </div>
@@ -362,24 +433,95 @@
         integrity="sha512-BrvVYNhKh6yST24E5DY/LopLO5d+8KYmIXyrpBIJ2PK+CyyJw/cLSG/BfJomWLC1IblNrmiJWGlrGueKLd/Ekw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script type="text/javascript">
+        //Just some helpers for debugging/setting modes
+        function convertUrlVar(variable) {
+
+            if (variable.length === 0) {
+                return false;
+            }
+
+            if (variable === 'true') {
+                return true;
+            }
+
+            if (variable === 'false') {
+                return false;
+            }
+
+            if (!isNaN(variable)) {
+                return parseInt(variable);
+            }
+
+            return variable;
+        }
+        function urlVar(variable) {
+            var query = window.location.search.substring(1);
+            var vars = query.split("&");
+            for (let i = 0; i < vars.length; i++) {
+                let pair = vars[i].split("=");
+                if (pair[0] == variable) { return this.convertUrlVar(pair[1]); }
+            }
+            return (false);
+        }
+    </script>
+    <script type="text/javascript">
+
+        
 
         var drago;
 
         document.addEventListener('DOMContentLoaded', function () {
             drago = new Drago('#stage');
-            //let save = localStorage.getItem('drago_save');
-            //if (!save) {
-            drago.init();
-            //} else {
-            //    drago.import(save);
-            //}
+            if (urlVar('mode') == 'dialog') {
+                drago.restrictTo(['Drago_Player', 'Drago_Convo', 'Drago_Logic', 'Drago_Datatype']);
+            }
+            let save = localStorage.getItem('drago_save');
+            if (!save || urlVar('fresh')) {
+                drago.init();
+            } else {
+                drago.import(save);
+            }
         }, false);
 
     </script>
 
     <!--
 
-        Cats
+        Cats:
+
+        Variables
+            Let
+            Var
+            Const
+            Delete
+        Logic
+            If
+            While
+            For
+        Variables
+            Int
+            Float
+            String
+            Object
+            Array
+            Undefined
+        Events
+            On
+            Off
+        Objects
+            window
+                properties
+                members
+                lists
+                    events
+            document
+        Lists
+            Events
+                onClick
+                onMouseOver
+                onMouseOut
+                onKeyDown
+        Functions
 
     -->
 
@@ -389,6 +531,8 @@
     <script type="text/javascript" src="src/DragoLink.js"></script>
     <script type="text/javascript" src="src/DragoComponents.js"></script>
     <script type="text/javascript" src="src/DragoCoreComponents.js"></script>
+    <script type="text/javascript" src="src/DragoConvoComponents.js"></script>
+    <script type="text/javascript" src="src/DragoPlayerComponents.js"></script>
     <script type="text/javascript" src="src/DragoCoreSubcomponents.js"></script>
 </body>
 
