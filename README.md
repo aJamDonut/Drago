@@ -33,6 +33,14 @@ Known Issues:
 - Some strategies for handling containers aren't finalized
 - Infact quite a lot of strategies need finalising and documenting
 
+Goals and restrictions:
+
+- Must be Vanilla JS (I'm not getting paid to do this so I get to choose.)
+- Must be dependency free (once Zepto is removed this is true)
+- Must be able to rollup into min
+- Must be able to run in Chromium/Webkit Browsers
+- Must be able to run without infrastructure
+
 
 **Adding new components**
 
