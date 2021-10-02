@@ -81,7 +81,7 @@ class DragoContainer {
                 if ($(e).css('position') != 'static')
                 return parseInt($(e).css('z-index')) || 1;
             }));
-            console.log("Setz", maxZ++);
+            
             this.elem.css('z-index', maxZ++);
         });
 
@@ -102,11 +102,27 @@ class DragoContainer {
 
         this.elem.children(".title").children(".minButton").on('mousedown', () => {
             if(this.elem.hasClass('hidden')) {
-                this.elem.removeClass('hidden');
+                this.show();
             } else {
-                this.elem.addClass('hidden');
+                this.hide();
             }
         });
+
+        console.log("Options", this.options.hidden)
+        if(this.options.hidden) {
+            this.hide();
+        }
+
+    }
+
+    show() {
+        this.options.hidden = false;
+        this.elem.removeClass('hidden');
+    }
+
+    hide() {
+        this.options.hidden = true;
+        this.elem.addClass('hidden');
     }
 
     addChild(child) {

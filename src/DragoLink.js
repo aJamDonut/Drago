@@ -13,7 +13,6 @@ class DragoLink {
        
     }
     draw() {
-        console.log(this.inputRow);
         if(this.inputRow.options.process) {
             this.drago.createSmoothPath(this.inputContainer.x+this.inputContainer.width, this.inputRow.y+this.padding, this.outputContainer.x, this.outputRow.y+this.padding, '#002e08')
         } else {
@@ -25,7 +24,6 @@ class DragoLink {
         
         
         for(let i = 0; i < this.inputRow.link.length; i++) {
-            console.log(this.id, this.inputRow.link[i].id)
             if(this.inputRow.link[i].id == this.id) {
                 this.inputRow.link.splice(i, 1);
                 break;
@@ -33,7 +31,6 @@ class DragoLink {
         }
 
         for(let i = 0; i < this.outputRow.link.length; i++) {
-            console.log(this.id, this.outputRow.link[i].id)
             if(this.outputRow.link[i].id == this.id) {
                 this.outputRow.link.splice(i, 1);
                 break;

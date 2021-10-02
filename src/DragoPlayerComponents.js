@@ -81,7 +81,7 @@ class Drago_Player_TakeItem extends DragoContainer {
             nodes.input2 = 1;
         }
 
-        return `player.takeItem(${nodes.input1}, ${nodes.input2})`;
+        return `\nplayer.takeItem(${nodes.input1}, ${nodes.input2});`;
     }
 
 }

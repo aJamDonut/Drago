@@ -112,7 +112,7 @@ class Drago {
     }
 
     importContainer(id, container) {
-        this.newContainer({value: container.value, rows: container.rows, id: id, component: container.component, type: container.options.type, x: container.x, y: container.y});
+        this.newContainer({value: container.value, rows: container.rows, id: id, component: container.component, type: container.options.type, x: container.x, y: container.y, hidden: container.options.hidden});
         
     }
 

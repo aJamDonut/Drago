@@ -208,7 +208,7 @@ class Drago_Convo_NextConvo extends DragoContainer {
     code() {
         
         let nodes = this.processInputsAndOutputs();
-        return `game.startConvo(${nodes.input2});\n`;
+        return `\n\ngame.startConvo(${nodes.input2});\n`;
 
     }
 
