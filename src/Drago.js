@@ -35,7 +35,23 @@ class Drago {
           setTimeout(() => {
             this.drawLinks();
           }, 1000)
-        
+        this.setStageBinds();
+    }
+
+    setStageBinds() {
+        this.stage.on('mousedown', function(e){
+            if(e.which == 1) {
+                //LCLICK
+            }
+            if(e.which == 2) {
+                //MCLICK
+            }
+            if(e.which == 3) {
+                //RCLICK
+            }
+            
+            //_self.mouseUp(e);
+        });
     }
 
     restrictTo(restricted) {

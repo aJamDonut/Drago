@@ -32,7 +32,7 @@
         }
 
         .container {
-            background-color: #262628;
+            background-color: #0000006b;
             position: absolute;
             width: 152px;
             border-radius: 10px;
@@ -54,8 +54,8 @@
         .title {
             /* margin-left: 10px; */
             padding-left: 18px;
-            background-color: #24455f;
             border-top-left-radius: 10px;
+            background: linear-gradient(0deg, rgb(0 0 0) 0%, rgb(52 52 52 / 48%) 47%, rgb(0 0 0 / 76%) 100%);
         }
 
         .row-left,
@@ -68,12 +68,14 @@
         }
 
         .input .row-left {
-            background-color: #7944b5;
+            background: rgb(252,121,237);
+            background: radial-gradient(circle, rgba(252,121,237,1) 0%, rgba(177,34,191,1) 13%, rgba(167,12,176,1) 15%, rgba(132,12,170,1) 20%, rgba(22,70,5,1) 100%);
             margin-left: -8px;
         }
 
         .Drago__Start .row-left {
-            background-color: #44b566;
+            background: rgb(149,252,121);
+            background: radial-gradient(circle, rgba(149,252,121,1) 0%, rgba(50,191,34,1) 13%, rgba(25,176,12,1) 15%, rgba(25,170,12,1) 20%, rgba(22,70,5,1) 100%);
         }
 
         .row-middle {
@@ -81,12 +83,14 @@
         }
 
         .output .row-right {
-            background-color: #7944b5;
+            background: rgb(252,121,237);
+            background: radial-gradient(circle, rgba(252,121,237,1) 0%, rgba(177,34,191,1) 13%, rgba(167,12,176,1) 15%, rgba(132,12,170,1) 20%, rgba(22,70,5,1) 100%);
             margin-right: -8px;
         }
 
         .process .row-right {
-            background-color: #13a271;
+            background: rgb(149,252,121);
+            background: radial-gradient(circle, rgba(149,252,121,1) 0%, rgba(50,191,34,1) 13%, rgba(25,176,12,1) 15%, rgba(25,170,12,1) 20%, rgba(22,70,5,1) 100%);
             margin-right: -8px;
         }
 
@@ -100,7 +104,7 @@
         .output .row-right {
             min-width: 15px;
             height: 15px;
-            border: 1px solid white;
+            border: 1px solid black;
             border-radius: 20px;
         }
 
@@ -165,12 +169,14 @@
             font-family: monospace;
             font-size: 10px;
             text-align: center;
-            background-color: #283d55;
+            
             width: 20px;
             border: 1px solid gray;
             border-radius: 7px;
             margin-top: -10px;
             margin-right: -9px;
+
+            background: linear-gradient(0deg, rgb(0 0 0) 0%, rgb(52 52 52 / 48%) 47%, rgb(0 0 0 / 76%) 100%);
         }
 
         .slim .xButton {
@@ -186,17 +192,20 @@
             font-family: monospace;
             font-size: 10px;
             text-align: center;
-            background-color: #283d55;
+            
             width: 20px;
             border: 1px solid gray;
             border-radius: 7px;
             margin-top: -10px;
             margin-right: 0px;
+
+            background: linear-gradient(0deg, rgb(0 0 0) 0%, rgb(52 52 52 / 48%) 47%, rgb(0 0 0 / 76%) 100%);
+
         }
 
         .hidden .title {
             border-radius: 10px;
-            background-color: rgb(36, 44, 66)
+            
         }
 
         .hidden .row:not(:first-child) {
@@ -282,6 +291,7 @@
             left: 0;
             overflow: auto;
             background-color: #444444;
+            background: url('docs/img/editor-bg.png') repeat;
         }
 
         #stage-container::-webkit-scrollbar-track {
