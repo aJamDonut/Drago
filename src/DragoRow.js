@@ -161,10 +161,13 @@ class DragoRow {
     html() {
         let display = this.display();
         let process = (this.options.process) ? 'process' : '';
+
+        let label = (this.container.slim) ? display : `<span class='label'>${display}</span>`
+
         let rowHTML = `
             <div id="${this.id}" class="row ${this.options.type} ${process} ${this.subcomponent}">
                 <div class="row-left"></div>
-                <div class="row-middle">${display}</div>
+                <div class="row-middle">${label}</div>
                 <div class="row-right"></div>
             </div>
             `;
