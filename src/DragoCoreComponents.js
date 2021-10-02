@@ -855,7 +855,7 @@ class Drago_Property_ObjectProperty extends DragoContainer {
     }
 
     init() {
-        
+
         this.addRow({
             name: 'input1',
             type: 'input',
@@ -1090,3 +1090,29 @@ class Drago_Debug_Log extends DragoContainer {
 }
 
 DragoComponents.prototype.Drago_Debug_Log = Drago_Debug_Log;
+
+class Drago_Output_Javascript extends DragoContainer {
+    constructor(drago, id, options) {
+        super(drago, id, options);
+        this.title = 'Javascript';
+        this.settings = {
+            cssClass: 'wideboy'
+        }
+    }
+    init() {
+
+        this.addRow({
+            name: 'input1',
+            type: 'variable',
+            label: '',
+            id: 'code_output',
+            subcomponent: 'Drago__Multiline',
+        });
+        
+    }
+    code() {
+        return ``;
+    }
+}
+
+DragoComponents.prototype.Drago_Output_Javascript = Drago_Output_Javascript;

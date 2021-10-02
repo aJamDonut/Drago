@@ -26,7 +26,7 @@ class DragoContainer {
             rows: this.rows,
             type: this.type,
             options: this.options,
-            value: this.value,
+            value: encodeURI(this.value),
             component: this.component,
             x: this.x,
             y: this.y
@@ -34,7 +34,7 @@ class DragoContainer {
     }
 
     set x(val) {
-        val = Math.floor(val/10)*10;
+        val = Math.floor(val/22)*22;
         if(this.drago.lowestContainerX<val) {
             this.drago.lowestContainerX = val
         }
@@ -42,7 +42,7 @@ class DragoContainer {
     }
 
     set y(val) {
-        val = Math.floor(val/12)*12;
+        val = Math.floor(val/22)*22;
         if(this.drago.lowestContainerY<val) {
             this.drago.lowestContainerY = val
         }
@@ -262,7 +262,7 @@ class DragoContainer {
     html() {
         if(!this.slim) {
             return `
-        <div class="container ${this.settings.cssClass}" id="${this.id}">
+        <div class="container ${this.settings.cssClass} ${this.options.containerName}" id="${this.id}">
             <div class="row title">
                 <span>${this.title}</span>
                 <span class='xButton'>x</span>
@@ -272,7 +272,7 @@ class DragoContainer {
 `
         } else {
             return `
-            <div class="container slim ${this.settings.cssClass}" id="${this.id}">
+            <div class="container slim ${this.settings.cssClass} ${this.options.containerName}" id="${this.id}">
                 <div class="row title">
                     <span class='xButton'>x</span>
                     <span>${this.title}</span>

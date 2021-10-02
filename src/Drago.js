@@ -66,9 +66,11 @@ class Drago {
 
         let ex = className.split("_");
 
+        console.log(ex[0]+"_"+ex[1], "allowed");
         if(ex.length >= 3) {
             
             if(this.restrictedTo.includes(ex[0]+"_"+ex[1])) {
+                
                 return false; //Is included as part of a category e.g. Drago_Convo
             }
         }
@@ -371,7 +373,8 @@ class Drago {
         const start3 = this.newContainer({component: 'Drago_Convo_Start', type: 'event', title: 'Event', x: 200, y: 250});
         const start4 = this.newContainer({component: 'Drago_Convo_Start', type: 'event', title: 'Event', x: 200, y: 350});
         const start5 = this.newContainer({component: 'Drago_Convo_Start', type: 'event', title: 'Event', x: 200, y: 450});
-
+        const output = this.newContainer({component: 'Drago_Output_Javascript', type: 'event', title: 'Event', x: 200, y: 550});
+        
         //const title = this.newContainer({component: 'Drago_Datatype_String', type: 'event', title: 'Event', x: 300, y: 50});
 
         //const dialog = this.newContainer({component: 'Drago_Convo_Dialog', type: 'event', title: 'Event', x: 500, y: 250});
@@ -393,9 +396,11 @@ class Drago {
 
         if(options.component && this.components[options.component]) {
             //Uses a custom component
+            options.containerName = options.component;
             container = new this.components[options.component](this, id, options);
         } else {
             //Uses the default component (empty)
+            options.containerName = 'DragoContainer';
             container = new DragoContainer(this, id, options);
         }
         this.containers[id] = container;

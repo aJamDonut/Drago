@@ -141,7 +141,7 @@ class Drago__Multiline extends DragoRow {
 
     constructor(container, id, options) {
         super(container, id, options)
-        this.textId = this.id+'-text';
+        this.textId = options.id || this.id+'-text';
         this.value = '';
     }
 
