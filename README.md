@@ -47,7 +47,7 @@ Goals and restrictions:
 Inside an imported javascript file create a new component which extends DragoContainer
 
 
-```
+```js
 class Drago_Convo_Start extends DragoContainer {
 
     constructor(drago, id, options) {
@@ -103,7 +103,7 @@ DragoComponents.prototype.Drago_Convo_Start = Drago_Convo_Start;
 
 Rows are each line within a component, e.g. if a component accepts a string, that is a row called Drago__String.
 
-```
+```js
 //Create a class which extends DragoRow
 class Drago__Multiline extends DragoRow {
 
