@@ -855,8 +855,7 @@ class Drago_Property_ObjectProperty extends DragoContainer {
     }
 
     init() {
-        console.error("this",this);
-
+        
         this.addRow({
             name: 'input1',
             type: 'input',

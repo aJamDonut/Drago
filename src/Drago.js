@@ -33,7 +33,6 @@ class Drago {
           });
 
           setTimeout(() => {
-              console.log("Draw");
             this.drawLinks();
           }, 1000)
         
@@ -89,6 +88,13 @@ class Drago {
 
         this.drawLinks();
         this.tick(); //Kick off tick        
+        
+        //Dirty hack for now.. Lines dont appear to draw immediately
+        $(".title:first-child").trigger('mousedown');
+        setTimeout(()=>{
+
+            $(".title:first-child").trigger('mouseup');
+        }, 1)
     }
 
     importContainers(containers) {
@@ -184,7 +190,6 @@ class Drago {
         });
 
         $('.Drago_addComponent').on('mouseup', function() {
-            console.log("Add", $(this).attr('data-component'));
             _self.newContainer({component: $(this).attr('data-component'), x: 100, y: window.innerHeight-200});
         });
     }
@@ -320,11 +325,9 @@ class Drago {
 
 
     removeLink(id) {
-        console.log("Destroy link", id);
         if(!this.links[id]) {
             return; //Already no link here
         }
-        console.log("Do", id);
         this.links[id].destroy();
         delete this.links[id];
         this.drawLinks(); //Refresh links;
@@ -347,16 +350,19 @@ class Drago {
 
     init() {
         
-        const start = this.newContainer({component: 'Drago_Convo_Start', type: 'event', title: 'Event', x: 100, y: 50});
-        const start2 = this.newContainer({component: 'Drago_Convo_Start', type: 'event', title: 'Event', x: 100, y: 150});
-        const start3 = this.newContainer({component: 'Drago_Convo_Start', type: 'event', title: 'Event', x: 100, y: 250});
+        const start = this.newContainer({component: 'Drago_Convo_Start', type: 'event', title: 'Event', x: 200, y: 50});
+        const start2 = this.newContainer({component: 'Drago_Convo_Start', type: 'event', title: 'Event', x: 200, y: 150});
+        const start3 = this.newContainer({component: 'Drago_Convo_Start', type: 'event', title: 'Event', x: 200, y: 250});
+        const start4 = this.newContainer({component: 'Drago_Convo_Start', type: 'event', title: 'Event', x: 200, y: 350});
+        const start5 = this.newContainer({component: 'Drago_Convo_Start', type: 'event', title: 'Event', x: 200, y: 450});
 
         //const title = this.newContainer({component: 'Drago_Datatype_String', type: 'event', title: 'Event', x: 300, y: 50});
 
         //const dialog = this.newContainer({component: 'Drago_Convo_Dialog', type: 'event', title: 'Event', x: 500, y: 250});
 
         this.drawLinks();
-        this.tick(); //Kick off tick        
+        this.tick(); //Kick off tick       
+        
     }
 
     newContainer(options) {

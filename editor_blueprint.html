@@ -462,6 +462,7 @@
             }
             return (false);
         }
+
     </script>
     <script type="text/javascript">
 
@@ -474,6 +475,19 @@
             if (urlVar('mode') == 'dialog') {
                 drago.restrictTo(['Drago_Player', 'Drago_Convo', 'Drago_Logic', 'Drago_Datatype']);
             }
+
+            if(urlVar('example') == 'dialog') {
+
+                fetch('docs/example1.json')
+                .then(response => response.json())
+                .then((data) => {
+                    drago.import(JSON.stringify(data));    
+                });
+
+                
+                return;
+            }
+
             let save = localStorage.getItem('drago_save');
             if (!save || urlVar('fresh')) {
                 drago.init();

@@ -104,7 +104,6 @@ class Drago__Object extends DragoRow {
         });
 
         $("#"+this.textId+"-setprop").on('mouseup', ()=>{
-            console.log("set prop");
             this.container.drago.newContainer({component: 'Drago_Protected_ObjectSetProperty', x: 100, y: window.innerHeight-200, value: this.value});
         });
 
