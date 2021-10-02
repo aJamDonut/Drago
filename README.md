@@ -4,6 +4,35 @@
 
 [Dialog Editor](https://ajamdonut.github.io/Drago/editor_blueprint.html?mode=dialog)
 
+**About**
+
+This project is built for personal use but I am providing it here with MIT license if anyone else just needs a hacky little tool for this kind of this. Feel free to completely rip it apart, use it for reference or inspiration. If you do use it, a little nod or tweet to me at @AJamDonut would be nice!
+
+The project depends only on Zepto or Jquery to provide DOM manipulation (I do plan to remove this at some point)
+
+I will be generating a min version soon.
+
+The goal of the tool is not to create something which gets imported or included into your project. This is a standalone tool and you should integrate what you want into it, with the tool exporting out the results you want, either as code or JSON.
+
+Plans:
+
+- Add save / load from localStorage
+- Document API
+- Add save / load from disk
+- Add LZ-String to compress data
+
+Would like one day:
+
+- Electron integration
+- Live Demo Hosted integration (like scratch and similar tools)
+- PixiJS implementation (build pixijs components with this tool)
+
+Known Issues:
+
+- Pretty sure the JSON cache is polluted with duplicates
+- Some strategies for handling containers aren't finalized
+- Infact quite a lot of strategies need finalising and documenting
+
 
 **Adding new components**
 
@@ -95,3 +124,7 @@ class Drago__Multiline extends DragoRow {
 DragoSubComponents.prototype.Drago__Multiline = Drago__Multiline;
 
 ```
+
+**Credits**
+
+Written by Adam Dougherty 2021 Twitter: @AJamDonut
