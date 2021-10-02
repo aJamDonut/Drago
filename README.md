@@ -1,9 +1,14 @@
 **Test urls:**
+
 [Full Editor](https://ajamdonut.github.io/Drago/editor_blueprint.html)
+
 [Dialog Editor](https://ajamdonut.github.io/Drago/editor_blueprint.html?mode=dialog)
 
+
 **Adding new components**
+
 Inside an imported javascript file create a new component which extends DragoContainer
+
 
 ```
 class Drago_Convo_Start extends DragoContainer {
@@ -58,9 +63,10 @@ DragoComponents.prototype.Drago_Convo_Start = Drago_Convo_Start;
 ```
 
 **Creating new row types**
+
 Rows are each line within a component, e.g. if a component accepts a string, that is a row called Drago__String.
 
-````
+```
 //Create a class which extends DragoRow
 class Drago__Multiline extends DragoRow {
 
@@ -84,6 +90,8 @@ class Drago__Multiline extends DragoRow {
     }
     
 }
+
 //Finally attach it to the DragoSubComponents class to make it available to Drago
 DragoSubComponents.prototype.Drago__Multiline = Drago__Multiline;
+
 ```
