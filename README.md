@@ -1,8 +1,8 @@
 **Test urls:**
 
-[Full Editor](https://ajamdonut.github.io/Drago/editor_blueprint.html)
+[Full Editor](https://ajamdonut.github.io/Drago/editor_blueprint.html?fresh=true)
 
-[Dialog Editor](https://ajamdonut.github.io/Drago/editor_blueprint.html?mode=dialog)
+[Dialog Editor](https://ajamdonut.github.io/Drago/editor_blueprint.html?mode=dialog&fresh=true)
 
 **About**
 
