@@ -14,9 +14,9 @@ class DragoLink {
     }
     draw() {
         if(this.inputRow.options.process) {
-            this.drago.createSmoothPath(this.inputContainer.x+this.inputContainer.width, this.inputRow.y+this.padding, this.outputContainer.x, this.outputRow.y+this.padding, '#002e08')
+            this.drago.createSmoothPath(this.inputContainer.x+this.inputContainer.width, this.inputRow.y+this.padding, this.outputContainer.x, this.outputRow.y+this.padding, this.drago.outputColor)
         } else {
-            this.drago.createSmoothPath(this.inputContainer.x+this.inputContainer.width, this.inputRow.y+this.padding, this.outputContainer.x, this.outputRow.y+this.padding, '#696969')
+            this.drago.createSmoothPath(this.inputContainer.x+this.inputContainer.width, this.inputRow.y+this.padding, this.outputContainer.x, this.outputRow.y+this.padding, this.drago.inputColor)
         }
         
     }

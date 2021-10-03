@@ -430,7 +430,7 @@
             padding: 5px;
             border: 1px solid rgba(255, 255, 255, 0.1);
             background: rgba(255, 255, 255, .05);
-            
+
         }
 
 
@@ -460,11 +460,12 @@
         textarea {
             resize: none;
         }
-        
+
         .Drago_Output_Javascript textarea {
-            border: none;
+            border: none !important;
             height: 93%;
             position: absolute;
+            background: none !important;
             resize: none;
         }
 
@@ -504,11 +505,17 @@
 
         </div>
     </div>
-
-
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.1/codemirror.min.js"
+        integrity="sha512-w8mdbtlkBpU0p/dbFb4Oa1Hfd5k2mvOX82w0FnArHOPB28Ixai1Uj68X/3aK+/+35zNbTzBf9OfuSG+XTwnwCw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.1/codemirror.min.css"
+        integrity="sha512-6sALqOPMrNSc+1p5xOhPwGIzs6kIlST+9oGWlI4Wwcbj1saaX9J3uzO3Vub016dmHV7hM+bMi/rfXLiF5DNIZg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"
         integrity="sha512-BrvVYNhKh6yST24E5DY/LopLO5d+8KYmIXyrpBIJ2PK+CyyJw/cLSG/BfJomWLC1IblNrmiJWGlrGueKLd/Ekw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <script type="text/javascript">
         //Just some helpers for debugging/setting modes
         function convertUrlVar(variable) {

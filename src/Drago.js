@@ -22,6 +22,9 @@ class Drago {
         this.dataclasses = new DragoDataClasses();
         this.lowestContainerY = 1000;
         this.lowestContainerX = 1000;
+
+        this.outputColor = '#97F49F';
+        this.inputColor = '#616161';
         
         setTimeout(()=>{this.addToolbar()}, 100);
         
@@ -474,9 +477,9 @@ class Drago {
             let row = this.lastClicked;
             let padding = 7.5;
             if(this.lastClicked.options.type == 'output') {
-                this.drawLine(row.x+row.width, row.y+padding, this.position.x, this.position.y, '#29631d');
+                this.drawLine(row.x+row.width, row.y+padding, this.position.x, this.position.y, this.outputColor);
             } else if (this.lastClicked.options.type == 'input') {
-                this.drawLine(row.x, row.y+padding, this.position.x, this.position.y, '#ff00ff');
+                this.drawLine(row.x, row.y+padding, this.position.x, this.position.y, this.inputColor);
             }
 
         } else {
