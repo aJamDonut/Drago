@@ -32,7 +32,7 @@
         }
 
         .container {
-            background-color: #0000006b;
+            background-color: #000000b5;
             position: absolute;
             width: 152px;
             border-radius: 10px;
@@ -241,6 +241,10 @@
 
         }
 
+        #Drago_Tools {
+            padding-left: 220px;
+        }
+
         #Drago_Tools .menu {
             clear: both;
             position: absolute;
@@ -256,7 +260,7 @@
 
         .tab-content {
             position: absolute;
-            bottom: 50px;
+            bottom: 34px;
 
         }
 
@@ -493,10 +497,108 @@
             font-size: 14px;
             border-radius: 10px;
         }
+
+        #stage {
+
+            width: 5000px;
+            height: 5000px;
+        }
+
+        #Drago_Left {
+            position: absolute;
+            width: 200px;
+            height: 100%;
+            overflow-y: none;
+            background-color: rgb(27 27 27);
+            border-right: 1px solid rgba(47, 47, 47, 0.644);
+
+        }
+
+        #Drago_Left .icon {
+            margin-right: 5px;
+        }
+
+        #Drago_Left .pane-section {
+            border: 1px solid rgb(19, 19, 19);
+            border-radius: 5px;
+            height: 500px;
+
+        }
+
+        #Drago_Left .pane-content {
+            margin: 5px;
+            padding: 5px;
+        }
+
+        #Drago_left .pane-title {
+            border-radius: 0px;
+        }
+
+        #Drago_Left .folder {
+            list-style-type: none;
+            
+        }
+
+        #Drago_Left .pane-subfolder {
+            margin-left: 30px;
+        }
+
+        #Drago_Left .icon-dropdown {
+            margin-right: 5px;
+        }
+
+        #Drago_Left li {
+            margin-top: 5px;
+            cursor: pointer
+        }
+
+        #Drago_Left li:hover {
+            background-color: rgb(49, 49, 49)
+        }
+
+        #context-menu {
+            background-color: #252525;
+            position: absolute;
+            width: 500px;
+            min-height: 20px;
+            border: 1px solid #373636;
+            width: 140px;
+            cursor: pointer;
+        }
+
+        #context-menu ul {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+        }
+
+        #context-menu li {
+            margin: 0;
+            padding: 0;
+            padding: 2.5px;
+        }
+
+        #context-menu span {
+            padding: 5px;
+        }
+
+        #context-menu li:hover {
+            background-color: rgb(29, 29, 29);
+        }
+
+        .icon {
+            width: 16px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        body {
+            user-select: none;
+        }
     </style>
 
     <div id="stage-container">
-        <svg xmlns="http://www.w3.org/2000/svg" id="dragoDrawArea" width="1000" height="1000" viewBox="0 0 1000 1000"
+        <svg xmlns="http://www.w3.org/2000/svg" id="dragoDrawArea" width="5000" height="5000" viewBox="0 0 5000 5000"
             preserveAspectRatio="xMinYMin meet">
             <title>Dirty Drago</title>
             <desc>Hey look im running Drago 1.0</desc>
@@ -505,7 +607,7 @@
 
         </div>
     </div>
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.1/codemirror.min.js"
         integrity="sha512-w8mdbtlkBpU0p/dbFb4Oa1Hfd5k2mvOX82w0FnArHOPB28Ixai1Uj68X/3aK+/+35zNbTzBf9OfuSG+XTwnwCw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -515,7 +617,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"
         integrity="sha512-BrvVYNhKh6yST24E5DY/LopLO5d+8KYmIXyrpBIJ2PK+CyyJw/cLSG/BfJomWLC1IblNrmiJWGlrGueKLd/Ekw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+        integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script type="text/javascript">
         //Just some helpers for debugging/setting modes
         function convertUrlVar(variable) {
@@ -556,6 +660,7 @@
         var drago;
 
         document.addEventListener('DOMContentLoaded', function () {
+
             drago = new Drago('#stage');
             if (urlVar('mode') == 'dialog') {
                 drago.restrictTo(['Drago_Player', 'Drago_Output', 'Drago_Convo', 'Drago_Logic', 'Drago_Datatype']);
@@ -573,12 +678,7 @@
                 return;
             }
 
-            let save = localStorage.getItem('drago_save');
-            if (!save || urlVar('fresh')) {
-                drago.init();
-            } else {
-                drago.import(save);
-            }
+            
         }, false);
 
     </script>
@@ -623,6 +723,10 @@
 
     -->
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.4.4/lz-string.min.js"
+        integrity="sha512-qoCTmFwBtCPvFhA+WAqatSOrghwpDhFHxwAGh+cppWonXbHA09nG1z5zi4/NGnp8dUhXiVrzA6EnKgJA+fyrpw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <script type="text/javascript" src="src/Drago.js"></script>
     <script type="text/javascript" src="src/DragoContainer.js"></script>
     <script type="text/javascript" src="src/DragoRow.js"></script>
@@ -632,6 +736,10 @@
     <script type="text/javascript" src="src/DragoConvoComponents.js"></script>
     <script type="text/javascript" src="src/DragoPlayerComponents.js"></script>
     <script type="text/javascript" src="src/DragoCoreSubcomponents.js"></script>
+    <script type="text/javascript" src="src/DragoPane.js"></script>
+    <script type="text/javascript" src="src/DragoStorage.js"></script>
+    <script type="text/javascript" src="src/DragoSheet.js"></script>
+    <script type="text/javascript" src="src/DragoFolder.js"></script>
 
     <style type="text/css">
         #githublink {

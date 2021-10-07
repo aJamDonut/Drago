@@ -75,17 +75,23 @@ class DragoContainer {
 
         //Set binds for container (nothing exists yet)
 
-        this.elem.on("mousedown", () => {
+        this.elem.on("mousedown", (e) => {
+            
+            e.stopPropagation();
+
             var maxZ = Math.max.apply(null, 
              $.map($('body *'), function(e,n) {
                 if ($(e).css('position') != 'static')
                 return parseInt($(e).css('z-index')) || 1;
             }));
-            
-            this.elem.css('z-index', maxZ++);
+            maxZ++;
+            this.elem.css('z-index', maxZ);
         });
 
-        this.elem.children(".title").on('mousedown', () => {
+        this.elem.children(".title").on('mousedown', (e) => {
+            
+            e.stopPropagation();
+
             this.drago.clickPos = { ...this.drago.position };
             this.drago.isMouseDown = true;
             this.drago.lastClicked = this;
@@ -108,7 +114,6 @@ class DragoContainer {
             }
         });
 
-        console.log("Options", this.options.hidden)
         if(this.options.hidden) {
             this.hide();
         }
