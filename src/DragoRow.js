@@ -81,6 +81,11 @@ class DragoRow {
                 //Dropped on an node and its not the same as me.
                 if(this.container.id !== this.drago.lastClicked.container.id) {
                     this.container.drago.linkNodes(this.container.drago.lastClicked, this);
+                    
+                    setTimeout(()=>{
+                        this.container.drago.recreateContainer(this.container.drago.lastClicked.id);
+                        this.container.drago.recreateContainer(this.container.id);
+                    }, 200);
                 }
             }
             this.container.drago.isMouseDown = false;
@@ -106,6 +111,11 @@ class DragoRow {
                 //Dropped on an node and its not the same as me.
                 if(this.container.id !== this.drago.lastClicked.container.id) {
                     this.container.drago.linkNodes(this.container.drago.lastClicked, this);
+                    setTimeout(()=>{
+                        this.container.drago.recreateContainer(this.container.drago.lastClicked.id);
+                        this.container.drago.recreateContainer(this.container.id);
+                    }, 200);
+                    
                 }
             }
             this.container.drago.isMouseDown = false;
@@ -130,6 +140,10 @@ class DragoRow {
             if(this.container.drago.lastClicked && this.container.drago.lastClicked.id !== this.id) {
                 //Dropped on an node and its not the same as me.
                 this.container.drago.linkNodes(this.container.drago.lastClicked, this);
+                setTimeout(()=>{
+                    this.container.drago.recreateContainer(this.container.drago.lastClicked.id);
+                    this.container.drago.recreateContainer(this.container.id);
+                }, 200);
             }
             this.container.drago.isMouseDown = false;
             this.container.drago.lastClicked = false;

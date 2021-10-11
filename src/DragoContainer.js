@@ -18,11 +18,17 @@ class DragoContainer {
         this.info = {};
         this.variable = {};
         this.settings = this.constructor.settings || {};
+        this.links = {};
         
+    }
+
+    addLink(link) {
+        this.links[link.id] = link;
     }
 
     toJSON() {
         return {
+            id: this.id,
             rows: this.rows,
             type: this.type,
             options: this.options,
@@ -204,7 +210,7 @@ class DragoContainer {
     processInputs() {
 
         let data = {};
-        let inputs = this.input;
+        let inputs = this.drago.sortContainers(Object.values(this.input));
         let keys = Object.keys(inputs);
 
         for (let i = 0; i < keys.length; i++) {
@@ -213,6 +219,7 @@ class DragoContainer {
             if (!input.link) {
                 continue; //Nothing linked yet
             }
+            input.link = this.drago.sortContainers(input.link);
             if(Array.isArray(input.link)) {
                 //Multi
                 for(let i = 0; i < input.link.length; i++) {
@@ -228,7 +235,7 @@ class DragoContainer {
     processOutputs() {
 
         let data = {};
-        let outputs = this.output;
+        let outputs = this.drago.sortContainers(Object.values(this.output));
         let keys = Object.keys(outputs);
         for (let i = 0; i < keys.length; i++) {
             let output = outputs[keys[i]];
@@ -241,6 +248,7 @@ class DragoContainer {
             }
             if(Array.isArray(output.link)) {
                 //Multi
+                output.link = this.drago.sortContainers(output.link);
                 for(let i = 0; i < output.link.length; i++) {
                     data[output.name] = data[output.name] + this.drago.processContainer(output.link[i].outputContainer);
                 }
@@ -253,7 +261,7 @@ class DragoContainer {
     processVariables() {
 
         let data = {};
-        let variables = this.variable;
+        let variables = this.drago.sortContainers(Object.values(this.variable));
         let keys = Object.keys(variables);
         for (let i = 0; i < keys.length; i++) {
             let variable = variables[keys[i]];

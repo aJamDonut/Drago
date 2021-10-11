@@ -305,7 +305,7 @@
             display: block;
             position: absolute;
             top: 0;
-            left: 0;
+            right: 0;
             overflow: auto;
             background-color: #444444;
             background: url('docs/img/editor-bg.png') repeat;
@@ -536,7 +536,7 @@
 
         #Drago_Left .folder {
             list-style-type: none;
-            
+
         }
 
         #Drago_Left .pane-subfolder {
@@ -595,6 +595,28 @@
         body {
             user-select: none;
         }
+
+        .input-text-inline:disabled {
+            border: none;
+            background: none;
+            display: inline;
+            background: none;
+            float: right;
+            width: 126px;
+            line-height: 20px;
+        }
+
+        .input-text-inline {
+            border: none;
+            line-height: 20px;
+            font-size: 14px;
+            background: none;
+            display: inline;
+            background: none;
+            float: right;
+            width: 126px;
+        }
+
     </style>
 
     <div id="stage-container">
@@ -678,7 +700,7 @@
                 return;
             }
 
-            
+
         }, false);
 
     </script>
@@ -736,10 +758,14 @@
     <script type="text/javascript" src="src/DragoConvoComponents.js"></script>
     <script type="text/javascript" src="src/DragoPlayerComponents.js"></script>
     <script type="text/javascript" src="src/DragoCoreSubcomponents.js"></script>
+    <script type="text/javascript" src="src/DragoBrowserComponents.js"></script>
     <script type="text/javascript" src="src/DragoPane.js"></script>
     <script type="text/javascript" src="src/DragoStorage.js"></script>
     <script type="text/javascript" src="src/DragoSheet.js"></script>
     <script type="text/javascript" src="src/DragoFolder.js"></script>
+    <script type="text/javascript" src="src/DragoLibHandler.js"></script>
+    <script type="text/javascript" src="src/DragoLibComponents.js"></script>
+    <script type="text/javascript" src="src/DragoToolbar.js"></script>
 
     <style type="text/css">
         #githublink {

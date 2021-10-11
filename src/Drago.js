@@ -3,7 +3,6 @@ class Drago {
     constructor(stageId) {
 
         this.storage = new DragoStorage(this, { compress: LZString.compress, decompress: LZString.decompress });
-
         this.folders = {};
         
         this.preloadSettings();
@@ -47,12 +46,9 @@ class Drago {
         this.scrollLeft = container.scrollLeft;
         this.scrollTop = container.scrollTop;
 
-        setTimeout(() => { 
+        
 
-            this.addToolbar();
-            
-         }, 100);
-
+        
         //document.oncontextmenu = function(e){e.preventDefault()};
 
         $('a').on('click', function (event) {
@@ -68,6 +64,10 @@ class Drago {
 
         this.setStageBinds();
         
+        this.libs = new DragoLibHandler(this, ()=>{
+            this.toolbar = new DragoToolbar(this);
+        });
+
     }
 
 
@@ -239,6 +239,29 @@ class Drago {
         
     }
 
+    recreateContainer(id) {
+
+        if(!this.containers[id]) {
+            return;
+        }
+        //This allows containers to be responsive when nodes/inputs change
+
+        let links = JSON.stringify(this.containers[id].links);
+        let clone = JSON.stringify(this.containers[id]);
+        
+        //Created a clone and chops off drago
+        let old = Object.assign({}, this.containers[id], {drago: {}});
+        this.containers[id].destroy();
+
+        delete this.containers[id];
+
+        this.importContainer(id, JSON.parse(clone), old);
+
+        this.importLinks(JSON.parse(links));
+        this.refreshDisplay();
+
+    }
+
     import(save) {
         save = JSON.parse(save);
 
@@ -250,14 +273,15 @@ class Drago {
 
         this.drawLinks();
         this.tick(); //Kick off tick        
-
-        //Dirty hack for now.. Lines dont appear to draw immediately
-        $(".title:first-child").trigger('mousedown');
-        setTimeout(() => {
-
-            $(".title:first-child").trigger('mouseup');
-        }, 1)
+        this.refreshDisplay();
+        
     }
+
+    refreshDisplay() {
+        //Dirty hack for now.. Lines dont appear to draw immediately
+        $(".title:first-child").trigger('mouseup');
+    }
+    
 
     importContainers(containers) {
         let containerKeys = Object.keys(containers);
@@ -273,8 +297,8 @@ class Drago {
 
     }
 
-    importContainer(id, container) {
-        this.newContainer({ value: container.value, rows: container.rows, id: id, component: container.component, type: container.options.type, x: container.x, y: container.y, hidden: container.options.hidden });
+    importContainer(id, container, old) {
+        this.newContainer({value: container.value, rows: container.rows, id: id, component: container.component, type: container.options.type, x: container.x, y: container.y, hidden: container.options.hidden }, old);
 
     }
 
@@ -297,84 +321,7 @@ class Drago {
         }
     }
 
-    addToolbar() {
-
-        this.leftPane = new DragoPane('Drago_Left', this);
-
-        this.folder = new DragoFolder(this.leftPane, this, $("#Drago_Left #default-folder"), 'root', 'default');
-
-        let components = Object.keys(DragoComponents.prototype);
-
-        $("body").append(`
-        
-            <div id='Drago_Tools'>
-                <div>
-                    <ul id="menu" class="menu">
-                        <li><input type='button' class='tab' data-tab='all' value='All'/></li>
-                    </ul>
-                    <div style='clear: both'></div>
-                    <div id="tabs">
-                        <div id="all" class="tab-content"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="Drago_Garbage">
-            </div>
-        
-        `);
-        let knownTabs = [];
-        for (let i = 0; i < components.length; i++) {
-
-            if (this.isRestricted(components[i])) {
-                continue;
-            }
-
-            let componentClass = DragoComponents.prototype[components[i]]
-
-            let settings = componentClass.settings;
-            if (!settings) {
-                settings = {};
-            }
-            let component = components[i].split('_');
-            let tab = "#" + component[1];
-            if (!knownTabs.includes(tab)) {
-                knownTabs.push(tab);
-                $("#tabs").append(`<div id="${component[1]}" class="tab-content"></div>`);
-                $("#menu").append(`<li><input type='button' class='tab' data-tab='${component[1]}' value='${component[1]}'/></li>`);
-            }
-            $("#all").append(`<input type='button' class='${settings.cssClass} Drago_addComponent' data-component='${components[i]}' value='${component[component.length - 1]}'/>`);
-            $(tab).append(`<input type='button' class='${settings.cssClass} Drago_addComponent' data-component='${components[i]}' value='${component[component.length - 1]}'/>`);
-        }
-
-        this.addToolbarBinds();
-
-        this.addDefaultFolderSetup();
-
-    }
-
-    addDefaultFolderSetup() {
-        if (!this.activeSheet) {
-            let folder = this.folders[Object.keys(this.folders)[0]];
-            let sheet = folder.addSheet('Default Sheet');
-            folder.openSheet(sheet.name);
-            return;
-        }
-    }
-
-    addToolbarBinds() {
-        let _self = this;
-
-        $('.tab').on('mouseup', function () {
-            $(".tab-content").hide();
-            $("#" + $(this).attr('data-tab')).show();
-        });
-
-        $('.Drago_addComponent').on('mouseup', function () {
-            _self.newContainer({ component: $(this).attr('data-component'), x: 100, y: window.innerHeight - 200 });
-        });
-    }
-
+    
     svgPoint(x, y) {
 
         var pt = this.svg.createSVGPoint();
@@ -488,12 +435,15 @@ class Drago {
         if (!outputRow) {
             console.error("[DRAGO] Can't find output", outputRowId);
         }
+        
 
         inputRow.addLink(id);
         outputRow.addLink(id);
 
         try {
             this.links[id] = new DragoLink(this, id, inputContainer, outputContainer, inputRow, outputRow);
+            inputContainer.addLink(this.links[id]);
+            outputContainer.addLink(this.links[id]);
             inputRow.link.push(this.links[id]);
             outputRow.link.push(this.links[id]);
         } catch (e) {
@@ -539,7 +489,7 @@ class Drago {
 
     }
 
-    newContainer(options) {
+    newContainer(options, old) {
         let id;
         if (options.id) {
             id = options.id;
@@ -552,15 +502,25 @@ class Drago {
         if (options.component && this.components[options.component]) {
             //Uses a custom component
             options.containerName = options.component;
-            container = new this.components[options.component](this, id, options);
+            container = new this.components[options.component](this, id, options, old);
         } else {
-            //Uses the default component (empty)
-            options.containerName = 'DragoContainer';
-            container = new DragoContainer(this, id, options);
+            
+            if(options.type == 'auto') {
+                //Imported from a library
+                //Uses the default component (empty)
+                options.containerName = 'DragoContainer';
+                container = new DragoLibContainer(this, id, options, old);
+            } else {
+                //Uses the default component (empty)
+                options.containerName = 'DragoContainer';
+                container = new DragoContainer(this, id, options, old);
+            }
         }
         this.containers[id] = container;
+        console.log("CONTAINER", container)
         if (container.type == 'event' || options.type == 'event') { //Double options is on load
             //Events are the start of code, so lets put them in their own special list.
+            
             this.events[id] = container; //TODO: add remove when we add remove later
             container.type = 'event';
         }
@@ -572,6 +532,9 @@ class Drago {
         this.setBinds();
         return container;
     }
+
+    
+    
 
     setBinds() {
 
@@ -636,7 +599,7 @@ class Drago {
             if (this.lastClicked.options.type == 'output') {
                 this.drawLine(row.x + row.width, row.y + padding, this.position.x+this.scrollLeft, this.position.y+this.scrollTop, this.outputColor);
             } else if (this.lastClicked.options.type == 'input') {
-                this.drawLine(row.x, row.y + padding, this.position.x, this.position.y, this.inputColor);
+                this.drawLine(row.x, row.y + padding, this.position.x+this.scrollLeft, this.position.y+this.scrollTop, this.inputColor);
             }
 
         } else {
@@ -650,10 +613,23 @@ class Drago {
         this.createSmoothPath(startX, startY, endX, endY, color);
     }
 
+    sortContainers(containers) {
+        //Sort containers by y
+        return containers.sort(function ( a, b ) {
+            if ( a.y < b.y ){
+                return -1;
+            }
+            if ( a.y > b.y ){
+                return 1;
+            }
+            return 0;
+        })
+    }
+
     recode() {
         this.maxProcesses = 0;
         let txtCode = $("#code_output");
-        let containers = this.events; //We'll start with events as the start
+        let containers = this.sortContainers(Object.values(this.events)); //We'll start with events as the start
         let containerIds = Object.keys(containers);
         txtCode.val(''); //Empty
         let output = '//Generated by DragoBluePrint \n';
@@ -671,7 +647,8 @@ class Drago {
         if (this.maxProcesses > 10) {
             return false; //Safekeeper
         }
-        return container.code();
+        
+        return container.code(true);
     }
 
     tick() {

@@ -27,6 +27,16 @@ class DragoFolder {
 
     }
 
+    
+    addDefaultFolderSetup() {
+        if (!this.drago.activeSheet) {
+            let folder = this.drago.folders[Object.keys(this.drago.folders)[0]];
+            let sheet = folder.addSheet('Default Sheet');
+            folder.openSheet(sheet.name);
+            return;
+        }
+    }
+
     openSheet(name) {
         
         let sheet = this.sheets[name];
@@ -36,7 +46,7 @@ class DragoFolder {
             sheet.default();
             return;
         }
-        
+
         this.drago.clear();
         let sheetData = this.storage.read(sheet.id);
         this.drago.import(sheetData);
@@ -91,8 +101,12 @@ class DragoFolder {
         </ul>
         `;
         this.elem.prepend(html);
-        this.pane.rebind();
         this.childElements = $(`#${this.id}-contents`);
+        this.rebind();
+    }
+
+    rebind() {
+
     }
 
     save() {

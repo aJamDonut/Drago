@@ -86,7 +86,6 @@ class Drago_Logic_If extends DragoContainer {
 
     constructor(drago, id, options) {
         super(drago, id, options);
-
         this.title = 'If';
         this.textId = this.id+'-text';
         this.scopeBlock = true;
@@ -96,6 +95,7 @@ class Drago_Logic_If extends DragoContainer {
     init() {
 
         this.addRow({
+            name: 'event',
             type: 'input',
             label: '',
             subcomponent: 'Drago__Start',
@@ -157,9 +157,9 @@ class Drago_Logic_If extends DragoContainer {
 
     code() {
 
-        let nodes = this.processInputsAndOutputs();
         
-
+        let nodes = this.nodes = this.processInputsAndOutputs();
+  
         if(nodes.output2.length > 1) {
             if(nodes.output1.length > 1) {
                 return `
@@ -936,6 +936,7 @@ class Drago_Datatype_Variable extends DragoContainer {
 
     constructor(drago, id, options) {
         super(drago, id, options);
+        this.type='event'
         this.title = 'Create Variable';
         this.textId = this.id+'-text';
     }

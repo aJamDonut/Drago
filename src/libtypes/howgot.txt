@@ -1,0 +1,9 @@
+To get pixijs we used pixi-build-tools to parse each d.ts file into a JSON file, we then joined them together
+
+To get eventemitter we downloaded it, changed the default export then used api-exporter to generate the json.
+
+We merged all the json into one file like this
+
+{
+"data":[json1,json2,json3]
+}

@@ -13,6 +13,7 @@ class DragoLink {
        
     }
     draw() {
+        this.y = this.outputContainer.y;
         if(this.inputRow.options.process) {
             this.drago.createSmoothPath(this.inputContainer.x+this.inputContainer.width, this.inputRow.y+this.padding, this.outputContainer.x, this.outputRow.y+this.padding, this.drago.outputColor)
         } else {
@@ -22,6 +23,8 @@ class DragoLink {
     }
     destroy() {
         
+        delete this.inputContainer.links[this.id];
+        delete this.outputContainer.links[this.id];
         
         for(let i = 0; i < this.inputRow.link.length; i++) {
             if(this.inputRow.link[i].id == this.id) {
