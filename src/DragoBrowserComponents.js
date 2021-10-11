@@ -19,9 +19,9 @@ class Drago_Events_DocumentReady extends DragoContainer {
         });
     }
 
-    code() {
+    code(level) {
 
-        let nodes = this.processInputsAndOutputs();
+        let nodes = this.processInputsAndOutputs(level);
         
         return `document.addEventListener('DOMContentLoaded', function () {\n${nodes.output1}});\n`;
     }

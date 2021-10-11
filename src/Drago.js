@@ -642,13 +642,22 @@ class Drago {
     }
 
 
-    processContainer(container) {
+    processContainer(container, level) {
+        if(!level) {
+            level = 0;
+        }
         this.maxProcesses++;
         if (this.maxProcesses > 10) {
             return false; //Safekeeper
         }
         
-        return container.code(true);
+        return this.indentCode(container.code(level), level);
+    }
+
+    indentCode(code, level) {
+        //First one nudges top row, second one indents everything, third once removes blank lines
+        return code.replace(/^(?=.*\n)/g, '\n').replace(/\n(?=.*\n.*\n)/g, '\n\t').replace(/\n\t\n/g, '\n').replace(/\n\t/m, '\n');
+        
     }
 
     tick() {

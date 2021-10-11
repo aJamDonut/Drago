@@ -155,10 +155,10 @@ class Drago_Logic_If extends DragoContainer {
         });
     }
 
-    code() {
+    code(level) {
 
         
-        let nodes = this.nodes = this.processInputsAndOutputs();
+        let nodes = this.nodes = this.processInputsAndOutputs(level);
   
         if(nodes.output2.length > 1) {
             if(nodes.output1.length > 1) {

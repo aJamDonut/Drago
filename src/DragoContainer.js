@@ -194,20 +194,31 @@ class DragoContainer {
         return ``;
     }
 
-    processInputsAndOutputs() {
+    processInputsAndOutputs(level) {
+        if(!level) {
+            level = 0;
+        }
         //Process variables first
         //Then inputs
         //Then outputs
         this.data = {};
         this.data.variables = this.processVariables();
-        this.data.inputs = this.processInputs();
-        this.data.outputs = this.processOutputs();
+        this.data.inputs = this.processInputs(level+1);
+        this.data.outputs = this.processOutputs(level+1);
         
         return {...this.data.variables, ...this.data.inputs, ...this.data.outputs}
         
     }
 
-    processInputs() {
+    tabs(level) {
+        let str = ''
+        for(let i = 0; i < level; i++) {
+            str = `${str} `;
+        }
+        return str;
+    }
+
+    processInputs(level) {
 
         let data = {};
         let inputs = this.drago.sortContainers(Object.values(this.input));
@@ -223,7 +234,7 @@ class DragoContainer {
             if(Array.isArray(input.link)) {
                 //Multi
                 for(let i = 0; i < input.link.length; i++) {
-                    data[input.name] = data[input.name] + input.link[i].inputRow.code();
+                    data[input.name] = data[input.name] + input.link[i].inputRow.code(level);
                 }
             }
             
@@ -232,7 +243,7 @@ class DragoContainer {
         return data;
     }
 
-    processOutputs() {
+    processOutputs(level) {
 
         let data = {};
         let outputs = this.drago.sortContainers(Object.values(this.output));
@@ -250,7 +261,7 @@ class DragoContainer {
                 //Multi
                 output.link = this.drago.sortContainers(output.link);
                 for(let i = 0; i < output.link.length; i++) {
-                    data[output.name] = data[output.name] + this.drago.processContainer(output.link[i].outputContainer);
+                    data[output.name] = data[output.name] + this.drago.processContainer(output.link[i].outputContainer, level);
                 }
             }
         }
