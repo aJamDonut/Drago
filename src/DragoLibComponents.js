@@ -139,3 +139,55 @@ class Drago__DynamicOutput extends DragoRow {
 }
 
 DragoSubComponents.prototype.Drago__DynamicOutput = Drago__DynamicOutput;
+
+class Drago_Datatype_DyamicVariable extends DragoContainer {
+
+    constructor(drago, id, options) {
+        super(drago, id, options);
+        this.title = 'Create Variable';
+        this.textId = this.id+'-text';
+        
+        this.value = options.value || this.value;
+    }
+
+    init() {
+        this.addRow({
+            name: 'input1',
+            subcomponent: 'Drago__Start',
+            type: 'input',
+            label: 'Create'
+        });
+        this.addRow({
+            name: 'input2',
+            type: 'variable',
+            label: 'Name',
+            subcomponent: 'Drago__String'
+        });
+
+        this.addRow({
+            name: 'input3',
+            type: 'input',
+            label: this.value
+        });
+        
+        this.addRow({
+            name: 'output1',
+            type: 'output',
+            label: 'Value',
+            multi: true,
+            subcomponent: 'Drago__StrippedVariable',
+            variable: 'input2',
+        });
+        
+        
+    }
+
+    code() {
+        let nodes = this.processInputsAndOutputs();
+        this.value = nodes.input3;
+        return `var ${nodes.input2.replace(/`/g,'')} = new ${nodes.input3}()\n`;
+    }
+
+}
+
+DragoComponents.prototype.Drago_Datatype_DyamicVariable = Drago_Datatype_DyamicVariable;

@@ -779,7 +779,8 @@ class Drago_Datatype_Int extends DragoContainer {
 
     code() {
         let nodes = this.processInputsAndOutputs();
-        return `${nodes.output1}`;
+        
+        return `.${nodes.output1}.`;
     }
 
 
@@ -879,7 +880,11 @@ class Drago_Property_ObjectProperty extends DragoContainer {
 
     code() {
         let nodes = this.processInputsAndOutputs();
-        return `${nodes.input1}[${nodes.input2}]`;
+        if(nodes.input2.length == '2' || nodes.input2.match(/( |-)/)) {
+            return `${nodes.input1}[${nodes.input2}]`;
+        } else {
+            return `${nodes.input1}.${nodes.input2.replace(/`/g,'')}`;
+        }
     }
 
 }
@@ -936,7 +941,6 @@ class Drago_Datatype_Variable extends DragoContainer {
 
     constructor(drago, id, options) {
         super(drago, id, options);
-        this.type='event'
         this.title = 'Create Variable';
         this.textId = this.id+'-text';
     }
@@ -950,8 +954,9 @@ class Drago_Datatype_Variable extends DragoContainer {
         });
         this.addRow({
             name: 'input2',
-            type: 'input',
-            label: 'Name'
+            type: 'variable',
+            label: 'Name',
+            subcomponent: 'Drago__String'
         });
 
         this.addRow({

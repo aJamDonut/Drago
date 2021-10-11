@@ -244,7 +244,7 @@ class Drago {
         if(!this.containers[id]) {
             return;
         }
-        //This allows containers to be responsive when nodes/inputs change
+        //This allows containers to be responsive when nodes/inputs change .. does it tho?
 
         let links = JSON.stringify(this.containers[id].links);
         let clone = JSON.stringify(this.containers[id]);
@@ -648,6 +648,7 @@ class Drago {
         }
         this.maxProcesses++;
         if (this.maxProcesses > 10) {
+            //TODO: does this happen?
             return false; //Safekeeper
         }
         

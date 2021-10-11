@@ -133,6 +133,14 @@ DragoSubComponents.prototype.Drago__Multiline = Drago__Multiline;
 
 ```
 
+**Notes**
+
+Some things that might be true:
+
+1. At the top level (i.e. root, or before anything on a sheet exists) only events generate code
+This means to generate code you must have all other items "chained" to some form of event
+
 **Credits**
 
 Written by Adam Dougherty 2021 Twitter: @AJamDonut
+
